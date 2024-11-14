@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make a Guess</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <div class="coin-container">
+        <h1>
+            Make a Guess
+        </h1>
+        <h3>Submit your image and text to Guess what Comes Next</h3>
+        <br />
+
+        <div class="modal" id="custom-modal">
+            <div class="modal-content">
+                <span class="close-button" id="close-button">&times;</span>
+                <h1>Customize</h1>
+                <label for="image1">Upload Image 1:</label>
+                <input type="file" id="image1" accept="image/*"><br><br>
+
+                <label for="text1">Enter text for image 1:</label>
+                <input type="text" id="text1" placeholder="Enter text for image 1"><br><br>
+
+                <label for="image2">Upload Image 2:</label>
+                <input type="file" id="image2" accept="image/*"><br><br>
+
+                <label for="text2">Enter text for image 2:</label>
+                <input type="text" id="text2" placeholder="Enter text for image 2"><br><br>
+
+                <button id="submit-button" class="custom-button">Submit</button>
+            </div>
+        </div>
+
+        <div class="coin" id="coin">
+            Heads
+        </div>
+        <button id="toss-button" class="custom-button">Guess</button>
+        <button id="custom-button" class="custom-button">Customize</button>
+        <h1 class="result"></h1>
+    </div>
+    <script>
+        const coinIcon = document.getElementById('coin');
+const tossBtn = document.getElementById('toss-button');
+const customBtn = document.getElementById('custom-button');
+const result = document.querySelector('.result');
+const customModal = document.getElementById('custom-modal');
+const closeButton = document.getElementById('close-button');
+const submitBtn = document.getElementById('submit-button');
+const image1Input = document.getElementById('image1');
+const image2Input = document.getElementById('image2');
+const text1Input = document.getElementById('text1');
+const text2Input = document.getElementById('text2');
+
+let imageUrl1 = 'logo.gif';
+let imageUrl2 = 'logo.gif';
+let text1 = 'Heads';
+let text2 = 'Tails';
+
+function toggleModal(modal) {
+    modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
+}
+
+submitBtn.addEventListener('click', () => {
+    toggleModal(customModal);
+    if (image1Input.files[0]) {
+        imageUrl1 = URL.createObjectURL(image1Input.files[0]);
+    }
+    if (image2Input.files[0]) {
+        imageUrl2 = URL.createObjectURL(image2Input.files[0]);
+    }
+    if (text1Input.value) {
+        text1 = text1Input.value;
+    }
+    if (text2Input.value) {
+        text2 = text2Input.value;
+    }
+});
+
+customBtn.addEventListener('click', () => {
+    toggleModal(customModal);
+});
+
+closeButton.addEventListener('click', () => {
+    toggleModal(customModal);
+});
+
+window.addEventListener('click', (event) => {
+    if (event.target === customModal) {
+        toggleModal(customModal);
+    }
+});
+
+tossBtn.addEventListener('click', () => {
+    tossBtn.disabled = true;
+    tossCoinFunction();
+});
+
+function tossCoinFunction() {
+    const randomVal = Math.random();
+    const faceCoin = randomVal < 0.5 ? text1 : text2;
+    const imageUrl = faceCoin === text1 ? imageUrl1 : imageUrl2;
+    coinIcon.classList.add('flip');
+    setTimeout(() => {
+        if (imageUrl) {
+            coinIcon.innerHTML = `<img src="${imageUrl}" alt="${faceCoin}" style="width: 100%; height: 100%; border-radius: 50%;">`;
+        } else {
+            coinIcon.innerHTML = faceCoin;
+        }
+        coinIcon.classList.remove('flip');
+        setTimeout(() => {
+            result.textContent = `Result: ${faceCoin}`;
+            result.style.opacity = 1;
+            tossBtn.disabled = false;
+        }, 500);
+    }, 1000);
+}
+    </script>
+</body>
+
+</html>
