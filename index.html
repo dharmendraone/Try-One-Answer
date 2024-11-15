@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Make a Guess</title>
+    <title>Try-one-answer</title>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
-
 <body>
     <div class="coin-container">
         <h1>
-            Make a Guess
+            Try One Answer
         </h1>
         <h3>Submit your image and text to Guess what Comes Next</h3>
         <br />
@@ -37,7 +35,7 @@
         </div>
 
         <div class="coin" id="coin">
-            <img src="img/logo.gif" alt="Default Coin" id="coin-image"> <!-- Default image -->
+            <img src="images/logo.gif" alt="Default Coin" id="coin-image"> <!-- Default image -->
         </div>
         <button id="toss-button" class="custom-button">Guess</button>
         <button id="custom-button" class="custom-button">Customize</button>
@@ -58,8 +56,8 @@
         const text2Input = document.getElementById('text2');
 
         // Default images and texts
-        let imageUrl1 = 'img/head.png';
-        let imageUrl2 = 'img/tails.png';
+        let imageUrl1 = 'images/head.png';
+        let imageUrl2 = 'images/tails.png';
         let text1 = 'Heads';
         let text2 = 'Tails';
         function toggleModal(modal) {
